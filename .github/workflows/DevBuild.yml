@@ -45,6 +45,12 @@ jobs:
           echo "HELIOS_VERSION=$($parts[1])" >> $env:GITHUB_ENV
           echo "Building Helios $($parts[1]) (program version $($parts[0]))"
 
+      - name: Map the source to a short drive letter
+        # the repository folder (D:\a\<repo>\<repo>) is long enough that some build output paths would pass
+        # Windows' 260-character limit; building from H:\ keeps them short
+        shell: cmd
+        run: 'subst H: "%GITHUB_WORKSPACE%"'
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
@@ -60,6 +66,7 @@ jobs:
           nuget-version: '5.x'
 
       - name: NuGet Restore
+        working-directory: 'H:\'
         run: |
           nuget restore BuildMeFirst.sln
           nuget restore "KeyPressReceiver/Keypress Receiver.csproj"
@@ -69,8 +76,22 @@ jobs:
           nuget restore Helios.sln
 
       - name: Build solutions and installers
-        shell: cmd
-        run: build.cmd auto
+        working-directory: 'H:\'
+        shell: pwsh
+        run: |
+          cmd /c "build.cmd auto" 2>&1 | Tee-Object -FilePath build-output.txt
+          exit $LASTEXITCODE
+
+      - name: Report build errors
+        # show the first error lines as notes on the run, so they can be read without downloading logs
+        if: failure()
+        working-directory: 'H:\'
+        shell: pwsh
+        run: |
+          if (Test-Path build-output.txt) {
+            Select-String -Path build-output.txt -Pattern ': error |error MSB|error CS|error :|failed' |
+              Select-Object -First 25 | ForEach-Object { Write-Output "::error::$($_.Line.Trim())" }
+          }
 
       - name: Upload build logs
         if: always()
@@ -78,10 +99,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Build Logs
-          path: "*.binlog"
+          path: |
+            *.binlog
+            build-output.txt
           retention-days: 5
 
       - name: Publish installers as a GitHub Release
+        working-directory: 'H:\'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: pwsh
