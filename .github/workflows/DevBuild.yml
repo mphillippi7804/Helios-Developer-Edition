@@ -90,7 +90,21 @@ jobs:
         run: |
           if (Test-Path build-output.txt) {
             Select-String -Path build-output.txt -Pattern ': error |error MSB|error CS|error :|failed' |
-              Select-Object -First 25 | ForEach-Object { Write-Output "::error::$($_.Line.Trim())" }
+              Select-Object -First 10 | ForEach-Object { Write-Output "::error::$($_.Line.Trim())" }
+          }
+          # build.cmd only prints warnings, so build again showing errors only, stopping at the first solution that fails
+          $version = (& ./EditionVersion.ps1).Split(' ')[0]
+          $builds = @(
+            @("BuildMeFirst.sln", "Release", "x64"),
+            @("Helios.sln", "NoInstallers", "x64"),
+            @("Helios.sln", "NoInstallers", "AnyCPU32"))
+          foreach ($b in $builds) {
+            $out = & MSBuild.exe -nologo -clp:ErrorsOnly -p:version=$version "-p:Configuration=$($b[1]);Platform=$($b[2])" $b[0] 2>&1
+            if ($LASTEXITCODE -ne 0) {
+              Write-Output "::error::Build of $($b[0]) $($b[1])|$($b[2]) failed:"
+              $out | Where-Object { "$_".Trim() -ne "" } | Select-Object -First 25 | ForEach-Object { Write-Output "::error::$("$_".Trim())" }
+              break
+            }
           }
 
       - name: Upload build logs
