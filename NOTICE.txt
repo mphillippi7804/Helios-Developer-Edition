@@ -6,9 +6,9 @@ This program is a MODIFIED VERSION of Helios Virtual Cockpit
   Copyright (c) 2014 Craig Courtney, 2020-2026 Helios Contributors
 
 Modified by GitHub user mphillippi7804, October 2026.
-  Source of this version:  https://github.com/mphillippi7804/Helios  (branch helios-editor)
+  Source of this version:  https://github.com/mphillippi7804/Helios-Developer-Edition  (branch main)
   Each published installer has a matching "source-and-installers" zip on the Releases page:
-  https://github.com/mphillippi7804/Helios/releases
+  https://github.com/mphillippi7804/Helios-Developer-Edition/releases
 
 This version is installed as "Helios Dev Custom" in Program Files\Helios Virtual Cockpit\Helios Dev Custom,
 alongside regular Helios; documents, settings and profiles use the normal Helios folders.

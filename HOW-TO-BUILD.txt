@@ -1,6 +1,6 @@
 Helios with Profile Editor improvements - build and publish guide
 =================================================================
-Branch: helios-editor on https://github.com/mphillippi7804/Helios
+Repository: https://github.com/mphillippi7804/Helios-Developer-Edition (branch main)
 Version: worked out automatically = official Helios version this source is based on + ".5"
          (based on 1.6.6200.7 -> 1.6.6200.7.5; Windows shows the program version as 1.6.6200.75)
 Installs as "Helios Dev Custom" to  C:\Program Files\Helios Virtual Cockpit\Helios Dev Custom
@@ -29,7 +29,7 @@ CLONE  (in "Developer Command Prompt for VS 2022")
  7. Pause OneDrive while building (OneDrive icon > Settings gear > Pause syncing > 24 hours);
     a build creates thousands of files that OneDrive would otherwise try to upload.
  8.   cd /d "C:\Users\marka\OneDrive\Desktop"
-      git clone --branch helios-editor --recurse-submodules https://github.com/mphillippi7804/Helios.git "Developer Edition"
+      git clone --recurse-submodules https://github.com/mphillippi7804/Helios-Developer-Edition.git "Developer Edition"
       cd "Developer Edition"
       git fetch --tags https://github.com/HeliosVirtualCockpit/Helios.git
 
@@ -49,15 +49,15 @@ BUILD THE INSTALLER  (same prompt, inside "Developer Edition")
     Helios Dev Custom. Start menu folder and desktop shortcuts are named "Helios Dev Custom ...".
 
 POST IT ON GITHUB  (choose one)
-12a. Website: open https://github.com/mphillippi7804/Helios/releases/new
+12a. Website: open https://github.com/mphillippi7804/Helios-Developer-Edition/releases/new
       - Choose a tag: type  helios-1.6.6200.7.5  and click "Create new tag"
-      - Target: helios-editor
+      - Target: main
       - Release title: Helios 1.6.6200.7.5
       - Drag in both .msi files from step 10, then "Publish release"
      (if that tag already exists, open the existing release, click Edit, and replace the files)
 12b. Let GitHub build and post it for you instead of steps 9-11:
-      https://github.com/mphillippi7804/Helios/actions > "HeliosDev Build & Create MSI Files"
-      > Run workflow > Branch: helios-editor > Run workflow.
+      https://github.com/mphillippi7804/Helios-Developer-Edition/actions > "Helios Build (Profile Editor improvements) & Publish Release"
+      > Run workflow > Branch: main > Run workflow.
       About 25 minutes later the release "Helios <version>" appears on the Releases page
       (an older release of the same version is replaced).
 

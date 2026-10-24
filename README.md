@@ -1,3 +1,19 @@
+# Helios Developer Edition (Helios Dev Custom)
+
+A modified version of the Helios Virtual Cockpit Profile Editor that makes building profiles easier.
+It is **not an official Helios release**. See [NOTICE.txt](NOTICE.txt) for what changed and [LICENSE.txt](LICENSE.txt) (GPL-3.0).
+
+- **Download:** installers are on the [Releases](https://github.com/mphillippi7804/Helios-Developer-Edition/releases) page.
+- **Installs as** "Helios Dev Custom" in `Program Files\Helios Virtual Cockpit\Helios Dev Custom`, alongside regular Helios.
+- **Adds:** Find All / Replace, Group (Ctrl+G) / Ungroup (Ctrl+U), proportional resizing, images that keep the object's size,
+  Ctrl+wheel zoom toward the pointer and side scrolling, alphabetical lists, and a Bindings panel with Input/Output
+  grouping (Tools > Options > Classic Bindings Layout switches back to the original layout).
+- **Build it yourself:** see [HOW-TO-BUILD.txt](HOW-TO-BUILD.txt).
+
+Based on official Helios: https://github.com/HeliosVirtualCockpit/Helios. The original Helios README follows.
+
+---
+
 Supported Platforms: [![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)](#)
 
 [![CI Build State](https://github.com/HeliosVirtualCockpit/Helios/actions/workflows/IntegrationBuild.yml/badge.svg)](https://github.com/HeliosVirtualCockpit/Helios/actions/workflows/IntegrationBuild.yml)
